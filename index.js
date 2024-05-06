@@ -73,7 +73,7 @@ app.post('/herois',async (req, res) => {
 app.delete('/herois/:id_heroi', async (req, res) => {
     try {
         const { id_heroi } = req.params;
-        const resultado = await pool.query('DELETE FROM herois WHERE id = $1', [id_heroi]);
+        const resultado = await pool.query('DELETE FROM herois WHERE id_heroi = $1', [id_heroi]);
         res.status(200).send({mensagem: 'heroi deletado com sucesso'})
     } catch (error) {
         console.error('Erro ao apagar heroi', error);
@@ -92,8 +92,8 @@ app.put('/herois/:id_heroi', async (req, res) => {
     try {
         const { id_heroi } = req.params;
         const { nome, poder, nivel, hp  } = req.body;
-        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, nivel = $4, hp = $5 WHERE id = $6', [nome, poder, nivel, hp, id_heroi])
-        res.status(200).send({mensagem: 'usuario atualizado com sucesso'})
+        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, hp = $4 WHERE id_heroi = $5', [nome, poder, nivel, hp, id_heroi])
+        res.status(200).send({mensagem: 'heroi atualizado com sucesso'})
     } catch (error) {
         console.error('Erro ao atualizar', error);
         res.status(500).send('Erro ao atualizar');
@@ -111,7 +111,7 @@ app.put('/herois/:id_heroi', async (req, res) => {
 app.get('/herois/:id_heroi', async(req, res) => {
     try {
         const { id_heroi } = req. params;
-        const resultado = await pool.query('SELECT * FROM herois WHERE id = $1', [id_heroi])
+        const resultado = await pool.query('SELECT * FROM herois WHERE id_heroi = $1', [id_heroi])
         if(resultado.rowCount == 0){
             res.status(404).send({mensagem: 'Id não encontrado'});
         }
