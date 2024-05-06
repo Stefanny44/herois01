@@ -88,17 +88,17 @@ app.delete('/herois/:id', async (req, res) => {
 
 
 
-// app.put('/herois/:id', async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { nome, poder, nivel, hp  } = req.body;
-//         await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, nivel = $4, hp = $5 WHERE id = $6', [nome, poder, nivel, hp, id])
-//         res.status(200).send({mensagem: 'usuario atualizado com sucesso'})
-//     } catch (error) {
-//         console.error('Erro ao atualizar', error);
-//         res.status(500).send('Erro ao atualizar');
-//     }
-// });
+app.put('/herois/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nome, poder, nivel, hp  } = req.body;
+        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, nivel = $4, hp = $5 WHERE id = $6', [nome, poder, nivel, hp, id])
+        res.status(200).send({mensagem: 'usuario atualizado com sucesso'})
+    } catch (error) {
+        console.error('Erro ao atualizar', error);
+        res.status(500).send('Erro ao atualizar');
+    }
+});
 
 
 
