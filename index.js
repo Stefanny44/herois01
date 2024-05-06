@@ -70,10 +70,10 @@ app.post('/herois',async (req, res) => {
 
 
 
-app.delete('/herois/:id', async (req, res) => {
+app.delete('/herois/:id_heroi', async (req, res) => {
     try {
-        const {id} = req.params;
-        const resultado = await pool.query('DELETE FROM herois WHERE id = $1', [id]);
+        const { id_heroi } = req.params;
+        const resultado = await pool.query('DELETE FROM herois WHERE id = $1', [id_heroi]);
         res.status(200).send({mensagem: 'heroi deletado com sucesso'})
     } catch (error) {
         console.error('Erro ao apagar heroi', error);
@@ -88,11 +88,11 @@ app.delete('/herois/:id', async (req, res) => {
 
 
 
-app.put('/herois/:id', async (req, res) => {
+app.put('/herois/:id_heroi', async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id_heroi } = req.params;
         const { nome, poder, nivel, hp  } = req.body;
-        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, nivel = $4, hp = $5 WHERE id = $6', [nome, poder, nivel, hp, id])
+        await pool.query('UPDATE herois SET nome = $1, poder = $2, nivel = $3, nivel = $4, hp = $5 WHERE id = $6', [nome, poder, nivel, hp, id_heroi])
         res.status(200).send({mensagem: 'usuario atualizado com sucesso'})
     } catch (error) {
         console.error('Erro ao atualizar', error);
@@ -108,15 +108,15 @@ app.put('/herois/:id', async (req, res) => {
 
 
 
-app.get('/herois/:id', async(req, res) => {
+app.get('/herois/:id_heroi', async(req, res) => {
     try {
-        const { id } = req. params;
-        const resultado = await pool.query('SELECT * FROM herois WHERE id = $1', [id])
+        const { id_heroi } = req. params;
+        const resultado = await pool.query('SELECT * FROM herois WHERE id = $1', [id_heroi])
         if(resultado.rowCount == 0){
             res.status(404).send({mensagem: 'Id não encontrado'});
         }
         res.json({
-            usuarios: resultado.rows[0],
+            herois: resultado.rows[0],
         })
     } catch (error) {
         console.error('Erro ao pegar heroi por ID ', error);
@@ -128,6 +128,6 @@ app.get('/herois/:id', async(req, res) => {
 
 
 
-// app.listen(PORT, () => {
-//     console.log(`Servidor rodando na porta ${PORT}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
