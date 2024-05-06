@@ -108,21 +108,21 @@ app.put('/herois/:id', async (req, res) => {
 
 
 
-// app.get('/herois/:id', async(req, res) => {
-//     try {
-//         const { id } = req. params;
-//         const resultado = await pool.query('SELECT * FROM herois WHERE id = $1', [id])
-//         if(resultado.rowCount == 0){
-//             res.status(404).send({mensagem: 'Id não encontrado'});
-//         }
-//         res.json({
-//             usuarios: resultado.rows[0],
-//         })
-//     } catch (error) {
-//         console.error('Erro ao pegar heroi por ID ', error);
-//         res.status(500).send('Erro ao pegar heroi por ID');
-//     }
-// });
+app.get('/herois/:id', async(req, res) => {
+    try {
+        const { id } = req. params;
+        const resultado = await pool.query('SELECT * FROM herois WHERE id = $1', [id])
+        if(resultado.rowCount == 0){
+            res.status(404).send({mensagem: 'Id não encontrado'});
+        }
+        res.json({
+            usuarios: resultado.rows[0],
+        })
+    } catch (error) {
+        console.error('Erro ao pegar heroi por ID ', error);
+        res.status(500).send('Erro ao pegar heroi por ID');
+    }
+});
 
 
 
