@@ -131,17 +131,21 @@ app.get('/herois/:id_heroi', async(req, res) => {
 
 
 
+
+
+
 // get criar batalhas
 
 app.get('/batalhas/:heroi1_id/:heroi2_id', async (req, res) => {
     
-    const { heroi1_id, heroi2_id } = req. params;
+    
     
     try {
+        const { heroi1_id, heroi2_id } = req. params;
         const vencedor_id = await vencedorCal(heroi1_id, heroi2_id)
 
 
-        await pool.query('INSERT INTO batalhas WHERE ( heroi1_id, heroi2_id, vencedor_id ) VALUES ($1, $2, $3)', [ heroi1_id, heroi2_id, vencedor_id])
+        await pool.query('INSERT INTO batalhas ( heroi1_id, heroi2_id, vencedor_id ) VALUES ($1, $2, $3)', [ heroi1_id, heroi2_id, vencedor_id])
         const { rows } = await pool.query('SELECT * FROM herois WHERE id_heroi = $1', [vencedor_id]);
         
         res.json({
